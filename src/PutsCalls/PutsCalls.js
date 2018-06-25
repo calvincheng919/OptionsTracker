@@ -78,6 +78,8 @@ class PutsCalls extends Component {
     onCellClick = (key) => {
         //console.log(key);
         //console.log('transaction',this.state.tradeEntries[key]);
+        
+                
         this.setState( () => {
             return {
                 editTrans: {toggle: false, key: key, bgColor: "text-left small bg-secondary text-white"},
@@ -118,7 +120,7 @@ class PutsCalls extends Component {
               <Container>
                 
                 <Row className="bg-light font-weight-bold small"  style={{height:60}}>
-                    <Col sm="1" className="border">Symbol</Col>
+                    <Col sm="1" className="border">Stock Symbol</Col>
                     <Col sm="1" className="border">Open Date</Col>
                     <Col sm="1" className="border">Exp Date</Col>
                     <Col sm="1" className="border">Call or Put</Col>
@@ -150,7 +152,7 @@ class PutsCalls extends Component {
                             <Col sm="1" className="border" style={{backgroundColor:"#FCCA9E"}}>{entry.fees}</Col>
                             <Col sm="1" className="border" style={{backgroundColor:"#C6FFDA"}}><Stockquote symbol={entry.symbol}/></Col>
                             <Col sm="1" className="border" style={{backgroundColor:"#C6FFDA"}}><Breakeven type={entry.type} strike={entry.strike} premium={entry.premium}/></Col>
-                            <Col sm="1" className="border" style={{backgroundColor:"#C6FFDA"}}><Status close= {entry.close} exp={entry.expiration}/></Col>
+                            <Col sm="1" className="border" style={{backgroundColor:"#275021" , color: "white"}}><Status close= {entry.close} exp={entry.expiration}/></Col>
                         </Row>
                         </div>
                         )
@@ -165,7 +167,7 @@ class PutsCalls extends Component {
               <Container >
             
                 <Row className="bg-light font-weight-bold small" style={{height:60}}>
-                    <Col sm="1" className="border">Symbol</Col>
+                    <Col sm="1" className="border">Stock Symbol</Col>
                     <Col sm="1" className="border">DTE</Col>
                     <Col sm="1" className="border">Exp Date</Col>
                     <Col sm="1" className="border">Call or Put</Col>
@@ -195,11 +197,11 @@ class PutsCalls extends Component {
                             <Col sm="1" className="border" style={{backgroundColor:"#C6FFDA"}}><Reserve strike={entry.strike} type={entry.type} transtype={entry.transtype} contracts={entry.contracts} /></Col>
                             <Col sm="1" className="border" style={{backgroundColor:"#FCCA9E"}}>{entry.exit}</Col>
                             <Col sm="1" className="border" style={{backgroundColor:"#FCCA9E"}}>{entry.close ? moment(entry.close).format('MM/DD/YY') : "-"}</Col>
-                            <Col sm="1" className="border" style={{backgroundColor:"#C6FFDA"}}><ProfitLoss transtype={entry.transtype} type={entry.type} contracts={entry.contracts} premium={entry.premium} exit={entry.exit} fees= {entry.fees}/></Col>
+                            <Col sm="1" className="border" style={{backgroundColor:"#275021", color: "white"}}><ProfitLoss transtype={entry.transtype} type={entry.type} contracts={entry.contracts} premium={entry.premium} exit={entry.exit} fees= {entry.fees}/></Col>
                             <Col sm="1" className="border" style={{backgroundColor:"#C6FFDA"}}><DaysHeld symbol={entry.symbol} open={entry.open} close={entry.close} exp={entry.expiration}/></Col>
                             <Col sm="1" className="border" style={{backgroundColor:"#C6FFDA"}}><AnnualizedROR type={entry.type} contracts={entry.contracts} strike={entry.strike} premium={entry.premium} exit={entry.exit} fees= {entry.fees}
                                 transtype={entry.transtype} open={entry.open} exp={entry.expiration} close={entry.close}/></Col>
-                            <Col sm="1" className="border" style={{backgroundColor:"#C6FFDA"}}><Status close= {entry.close} exp={entry.expiration}/></Col>
+                            <Col sm="1" className="border" style={{backgroundColor:"#275021" , color: "white"}}><Status close= {entry.close} exp={entry.expiration}/></Col>
                         </Row>
                         </div>
                         )

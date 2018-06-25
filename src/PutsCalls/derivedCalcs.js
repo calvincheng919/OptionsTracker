@@ -65,9 +65,9 @@ class ProfitLoss extends Component {
         const transtype = this.props.transtype;
         const profitloss = () => {
             if (transtype.toUpperCase() == 'SELL') {
-                return 100*contracts*(premium-exit)-fees; 
+                return (100*contracts*(premium-exit)-fees).toFixed(2); 
             } else {
-                return 100*contracts*(exit-premium)-fees;
+                return (100*contracts*(exit-premium)-fees).toFixed(2);
             }
         }   
         return <p>{profitloss()}</p>
@@ -85,7 +85,7 @@ class DaysHeld extends Component {
 
             if (close == 'NotClosed') {
                 return Math.floor(moment.duration(expDate.diff(open)).asDays())
-            } else { return (moment.duration(close.diff(open)).asDays())}
+            } else { return Math.floor(moment.duration(close.diff(open)).asDays())}
     
         }
         return <p>{daysheld()}</p>

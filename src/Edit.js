@@ -73,11 +73,11 @@ class Edit extends Component {
 
     onInputChange = (e) => {
         e.preventDefault();
-
-        const newValue = e.target.value;
+        
         const targetElement = e.target.id;
-        console.log('targetElement', targetElement);
-        console.log('state', this.state.symbol);
+        const newValue = e.target.value;
+        //console.log('targetElement', targetElement);
+        //console.log('state', this.state.symbol);
         this.setState(() => {
             return {
                 [targetElement]: newValue

@@ -9,6 +9,9 @@ class Glossary extends Component {
             <Container>
             <hr />
                 <h4>Glossary of Terms</h4><br />
+<p>This glossary comes verbatim from my reference <a href="http://www.twoinvesting.com/2016/10/options-tracker-spreadsheet/" target="_blank"> website</a> where the Google sheet originated.
+I have changed very little of the original definitions. You will see that in general, most trades made are typically option sells. This is because you essentially become the maker of the trade
+when you sell, and pocket the premium while hoping the contract expires worthless (you get to keep the premium). There is a much higher chance of an option expiring worthless than not.</p><br />
 <b>Stock Symbol</b><br />
 The ticker symbol for the stock underlying the option contract. I use a Google Finance call to look up the stock price so you must use the ticker symbol as recognized by Google Finance.
 <br /><br />
