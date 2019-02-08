@@ -1,8 +1,11 @@
+
+
+
 import React, { Component } from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 //import './App.css';
 import Home from './Home';
-import Example from './codesamples/Example';
+//import Example from './codesamples/Example';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 
 import {
@@ -31,6 +34,7 @@ import Signin from './Signin';
 class App extends Component {
   render() {
     return (
+      // <div>hello Options Tracker</div>
       <Router>
       <div>
       <Container >
