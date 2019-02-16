@@ -1,6 +1,3 @@
-
-
-
 import React, { Component } from 'react';
 //import logo from './logo.svg';
 //import './App.css';
@@ -34,7 +31,7 @@ import Signin from './Signin';
 class App extends Component {
   render() {
     return (
-      // <div>hello Options Tracker</div>
+      
       <Router>
       <div>
       <Container >
