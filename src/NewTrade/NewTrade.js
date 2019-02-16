@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
 import {
     Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
+    Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink,
     Container,
-    Row,
-    Col,
+    Row,Col,
     Button,
-    InputGroup, 
-    InputGroupAddon, 
-    InputGroupText, 
-    Input
+    InputGroup, InputGroupAddon, InputGroupText, Input,
+    Modal, ModalHeader, ModalBody, ModalFooter 
   } from 'reactstrap';
-
 import firebase from 'firebase';
-
 import 'react-datepicker/dist/react-datepicker.css';
 import Stockquote from './Stockquote';
 
@@ -42,12 +32,23 @@ class NewTrade extends Component {
             exit: '',
             close: '',
             entryInput: '',
-            tradeEntries: {}
+            tradeEntries: {},
+            modal: false,
+            modalText: '',
+            buttonDisabled: true
         }
-        
+        this.toggle = this.toggle.bind(this);    
     }
 
+    toggle(modalText) {
+        this.setState(prevState => ({
+          modal: !prevState.modal,
+          modalText: modalText
+        }));
+      }
+    
     componentDidMount() {
+        const modalText = <div>You must be logged in to view options performance</div>
         if (!auth.currentUser) {
             alert('You must be logged in to view options performance');
             return this.props.history.push('/');
@@ -77,15 +78,13 @@ class NewTrade extends Component {
 
         const targetElement = e.target.id;
         this.setState(() => {
+
             return {
-                
                 entryInput: newValue, 
                 [targetElement]: newValue
-                
             }
         })
-        console.log('symbol', this.state.symbol);
-
+        
     }
 
     addEntry = (e) => {
@@ -127,6 +126,33 @@ class NewTrade extends Component {
                 
             };
         })
+        
+        this.toggle();
+
+    }
+
+    clearEntry = (e) =>{
+        e.preventDefault();
+
+        this.setState(() => {
+            return {
+                
+                entryInput: '',
+                symbol: '',
+                open: '',
+                expiration: '',
+                type: '',
+                transtype: '',
+                strike: '',
+                premium: '',
+                contracts: '',
+                fees: '',
+                exit: '',
+                close: ''
+                
+            };
+        })
+
     }
 
     getQuote = (e) => {
@@ -144,10 +170,41 @@ class NewTrade extends Component {
 
     render () {
         //console.log('from firebase', Object.keys(this.state.journalEntries));
+        
+        const confirmJSX =  
+                <div>Please verify the information is correct:
+                <ul>
+                <li>SYMBOL: {this.state.symbol}</li>
+                <li>OPEN DATE: {this.state.open}</li>
+                <li>EXPIRATION DATE: {this.state.expiration}</li>
+                <li>TRADE TYPE: {this.state.type}</li>
+                <li>TRANSACTION TYPE: {this.state.transtype}</li>
+                <li>STRIKE PRICE: {this.state.strike}</li>
+                <li>PREMIUM: {this.state.premium}</li>
+                <li>CONTRACTS: {this.state.contracts}</li>
+                <li>COMMISSION + FEES: {this.state.fees}</li>
+                <li>EXIT PRICE: {this.state.exit}</li>
+                <li>CLOSE DATE: {this.state.close}</li>
+                </ul>
+                </div>
+
+        const buttonState = ( 
+            this.state.symbol !=='' && 
+            this.state.contracts !==''&&
+            this.state.open !==''&&
+            this.state.transtype !=='' &&
+            this.state.type !=='' && 
+            this.state.strike !=='' &&
+            this.state.expiration !=='' && 
+            this.state.premium !=='' && 
+            this.state.fees !==''
+        );
+
         return (
             <Container>
+                
             <hr />    
-            <form onSubmit={this.addEntry}>
+            {/* <form onSubmit={this.addEntry}> */}
             <h4>New Trade</h4><br />
                 <Row>
                 <Col>            
@@ -271,9 +328,35 @@ class NewTrade extends Component {
                     </InputGroup>
                 </Col>
                 <Col> </Col>
-                <Col><Button color="primary" type="submit">Save</Button>{' '}</Col>
+                <Col><Button disabled={!buttonState} onClick= {() => this.toggle(confirmJSX)} color="primary" type="submit">Save</Button>{' '}<Button color="secondary" type="cancel" onClick={this.clearEntry}>Clear</Button>{' '}</Col>
                 </Row>
-            </form>
+            {/* </form> */}
+
+            {/* Modal Form */}
+            <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                    <ModalHeader toggle={this.toggle}>New Trade Entry</ModalHeader>
+                        <ModalBody>
+                        {/* Please verify the information is correct:
+                        <ul>
+                            <li>SYMBOL: {this.state.symbol}</li>
+                            <li>OPEN DATE: {this.state.open}</li>
+                            <li>EXPIRATION DATE: {this.state.expiration}</li>
+                            <li>TRADE TYPE: {this.state.type}</li>
+                            <li>TRANSACTION TYPE: {this.state.transtype}</li>
+                            <li>STRIKE PRICE: {this.state.strike}</li>
+                            <li>PREMIUM: {this.state.premium}</li>
+                            <li>CONTRACTS: {this.state.contracts}</li>
+                            <li>COMMISSION + FEES: {this.state.fees}</li>
+                            <li>EXIT PRICE: {this.state.exit}</li>
+                            <li>CLOSE DATE: {this.state.close}</li>
+                        </ul> */}
+                        {this.state.modalText}
+                        </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.addEntry} >Submit</Button>{' '}
+                        <Button color="secondary" onClick={() => this.toggle("")}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
             </Container>
         );
        

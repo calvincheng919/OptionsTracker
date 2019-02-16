@@ -39,8 +39,10 @@ class PutsCalls extends Component {
             tradeEntries: {},
             activeTab: '1',
             editTrans: {toggle: true, key: '', bgColor:"text-left small"},
-            entry: {}
+            entry: {},
+            bColor: {backgroundColor:"white"}
         }
+        // this.mouseOver = this.toggle.bind(this);
     }
 
     toggle(tab) {
@@ -89,6 +91,13 @@ class PutsCalls extends Component {
         
     }
 
+    mouseOver = (key) => {
+      this.setState(() => {
+        return {
+          bColor: {backgroundColor:"green"}
+        }
+      })
+    }
 
     render() {
         //console.log('from FB', this.state.tradeEntries);
@@ -137,9 +146,9 @@ class PutsCalls extends Component {
                 {
                     Object.keys(this.state.tradeEntries).map((key) => {
                         const entry = this.state.tradeEntries[key];
-                        //console.log('key', key);
+                        
                         return (
-                        <div  onClick={() => this.onCellClick(key)}>
+                        <div onClick={() => this.onCellClick(key)} style={this.state.bColor}>
                             <Row className="text-left small">
                             <Col sm="1" className="border" style={{backgroundColor:"#FCCA9E"}}>{entry.symbol}</Col>
                             <Col sm="1" className="border" style={{backgroundColor:"#FCCA9E"}}>{moment(entry.open).format("MM/DD/YY")}</Col>

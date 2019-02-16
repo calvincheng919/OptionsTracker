@@ -17,7 +17,8 @@ import {
     InputGroupText, 
     Input,
     TabContent,
-    TabPane
+    TabPane,
+    Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
   import firebase from 'firebase';
   import { DTE, Status, Reserve, ProfitLoss, DaysHeld, AnnualizedROR, Breakeven } from './PutsCalls/derivedCalcs';
@@ -47,10 +48,19 @@ class Edit extends Component {
             fees: '',
             exit: '',
             close: '',
-            toggle: ''
-
+            toggle: '',
+            modal: false
         }
+        this.toggle = this.toggle.bind(this); 
+        
     }
+
+    toggle() {
+        this.setState(prevState => ({
+          modal: !prevState.modal,
+        //   modalText: modalText
+        }));
+      }
 
     static getDerivedStateFromProps(props, state) {
         if (!state.symbol) {
@@ -155,6 +165,7 @@ class Edit extends Component {
         }))
 
     }
+    
     render() {
         const inputStyle = {padding:"0px 0px", margin: "0px 0px 0px 0px", fontSize: "small"};
         const inputFont = {fontSize: "small", padding:"3px 0px 3px 15px" , backgroundColor: this.state.bgColor};
@@ -187,8 +198,19 @@ class Edit extends Component {
                 <Col></Col>
                 <Col></Col>    
                 <Col sm="1"><Button onClick={this.submitDB} color="primary" disabled={this.props.editTrans.toggle}>Submit</Button></Col>
-                <Col sm="1"><Button onClick={this.deleteDB} color="primary" disabled={this.props.editTrans.toggle}>Delete</Button></Col>
-                </Row>
+                <Col sm="1"><Button onClick={this.toggle} color="primary" disabled={this.props.editTrans.toggle}>Delete</Button></Col>
+            </Row>
+            {/* Modal Form */}
+            <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                <ModalHeader toggle={this.toggle}>New Trade Entry</ModalHeader>
+                    <ModalBody>
+                    <p>Delete, are you sure you?</p>
+                    </ModalBody>
+                <ModalFooter>
+                    <Button color="danger" onClick={this.deleteDB} >Delete</Button>{' '}
+                    <Button color="secondary" onClick={() => this.toggle()}>Cancel</Button>
+                </ModalFooter>
+            </Modal>
 
             </Container>
         ) 
@@ -211,10 +233,19 @@ class Edit2 extends Component {
             fees: '',
             exit: '',
             close: '',
-            toggle: ''
+            toggle: '',
+            modal: false
            
         }
+        this.toggle = this.toggle.bind(this);
     }
+
+    toggle() {
+        this.setState(prevState => ({
+          modal: !prevState.modal,
+        //   modalText: modalText
+        }));
+      }
 
     static getDerivedStateFromProps(props, state) {
         if (!state.symbol) {
@@ -349,8 +380,19 @@ class Edit2 extends Component {
                 <Col></Col>
                 <Col></Col>    
                 <Col sm="1"><Button onClick={this.submitDB} color="primary" disabled={this.props.editTrans.toggle}>Submit</Button></Col>
-                <Col sm="1"><Button onClick={this.deleteDB} color="primary" disabled={this.props.editTrans.toggle}>Delete</Button></Col>
-                </Row>
+                <Col sm="1"><Button onClick={this.toggle} color="primary" disabled={this.props.editTrans.toggle}>Delete</Button></Col>
+            </Row>
+            {/* Modal Form */}
+            <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                    <ModalHeader toggle={this.toggle}>New Trade Entry</ModalHeader>
+                        <ModalBody>
+                        <p>Delete, are you sure you?</p>
+                        </ModalBody>
+                    <ModalFooter>
+                        <Button color="danger" onClick={this.deleteDB} >Delete</Button>{' '}
+                        <Button color="secondary" onClick={() => this.toggle()}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
             </Container>
         ) 
     }
