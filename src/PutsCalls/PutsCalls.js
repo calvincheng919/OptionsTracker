@@ -16,7 +16,8 @@ import {
     InputGroupText, 
     Input,
     TabContent,
-    TabPane
+    TabPane,
+    Table
   } from 'reactstrap';
 import classnames from 'classnames';
 import firebase from 'firebase';
@@ -24,6 +25,7 @@ import moment from 'moment';
 import { DTE, Status, Reserve, ProfitLoss, DaysHeld, AnnualizedROR, Breakeven } from './derivedCalcs';
 import {Edit1, Edit2} from '../Edit';
 import Stockquote from '../NewTrade/Stockquote';
+import '../css/style.css'
 
 
 const auth = firebase.auth();
@@ -91,15 +93,8 @@ class PutsCalls extends Component {
         
     }
 
-    mouseOver = (key) => {
-      this.setState(() => {
-        return {
-          bColor: {backgroundColor:"green"}
-        }
-      })
-    }
 
-    render() {
+    render(){  
         //console.log('from FB', this.state.tradeEntries);
         return (
         
@@ -148,21 +143,21 @@ class PutsCalls extends Component {
                         const entry = this.state.tradeEntries[key];
                         
                         return (
-                        <div onClick={() => this.onCellClick(key)} style={this.state.bColor}>
-                            <Row className="text-left small">
-                            <Col sm="1" className="border" style={{backgroundColor:"#FCCA9E"}}>{entry.symbol}</Col>
-                            <Col sm="1" className="border" style={{backgroundColor:"#FCCA9E"}}>{moment(entry.open).format("MM/DD/YY")}</Col>
-                            <Col sm="1" className="border" style={{backgroundColor:"#FCCA9E"}}>{moment(entry.expiration).format("MM/DD/YY")}</Col>
-                            <Col sm="1" className="border" style={{backgroundColor:"#FCCA9E"}}>{entry.type}</Col>
-                            <Col sm="1" className="border" style={{backgroundColor:"#FCCA9E"}}>{entry.transtype}</Col>
-                            <Col sm="1" className="border" style={{backgroundColor:"#FCCA9E"}}>{entry.strike}</Col>
-                            <Col sm="1" className="border" style={{backgroundColor:"#FCCA9E"}}>{entry.premium}</Col>
-                            <Col sm="1" className="border" style={{backgroundColor:"#FCCA9E"}}>{entry.contracts}</Col>
-                            <Col sm="1" className="border" style={{backgroundColor:"#FCCA9E"}}>{entry.fees}</Col>
-                            <Col sm="1" className="border" style={{backgroundColor:"#C6FFDA"}}><Stockquote symbol={entry.symbol}/></Col>
-                            <Col sm="1" className="border" style={{backgroundColor:"#C6FFDA"}}><Breakeven type={entry.type} strike={entry.strike} premium={entry.premium}/></Col>
-                            <Col sm="1" className="border" style={{backgroundColor:"#275021" , color: "white"}}><Status close= {entry.close} exp={entry.expiration}/></Col>
-                        </Row>
+                        <div className="rowHover" onClick={() => this.onCellClick(key)}>
+                            <Row className="text-left small" >
+                            <Col sm="1" className="border enteredVal">{entry.symbol}</Col>
+                            <Col sm="1" className="border enteredVal">{moment(entry.open).format("MM/DD/YY")}</Col>
+                            <Col sm="1" className="border enteredVal">{moment(entry.expiration).format("MM/DD/YY")}</Col>
+                            <Col sm="1" className="border enteredVal">{entry.type}</Col>
+                            <Col sm="1" className="border enteredVal">{entry.transtype}</Col>
+                            <Col sm="1" className="border enteredVal">{entry.strike}</Col>
+                            <Col sm="1" className="border enteredVal">{entry.premium}</Col>
+                            <Col sm="1" className="border enteredVal">{entry.contracts}</Col>
+                            <Col sm="1" className="border enteredVal">{entry.fees}</Col>
+                            <Col sm="1" className="border derivedVal"><Stockquote symbol={entry.symbol}/></Col>
+                            <Col sm="1" className="border derivedVal" ><Breakeven type={entry.type} strike={entry.strike} premium={entry.premium}/></Col>
+                            <Col sm="1" className="border derivedboldVal"><Status close= {entry.close} exp={entry.expiration}/></Col>
+                            </Row>
                         </div>
                         )
                     })
