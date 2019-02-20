@@ -43,7 +43,15 @@
  
 * Use a more reliable stock quote service instead of Alapha Vantage. I will try iex, which has an npm package I can install
 * ~Basic form entry validation, on submit and delete, etc...~
+* Field validation 
+    - Expiration is after open date
+    - Current premium is less than current stock price
 * ~When clicking on any particular row, that row should be highlighted to indicate it has been clicked~
 * ~When hovering over the row, the row should highlight a different color from that of selected and other~
+* Signin/Signout - present login for Google
+* Color scheme is attrocious - do something about it
+* Support bulk upload via csv, and excel/google sheets
+
 * Total cash reserve required should be calculated based on open positions, along with actual cash reserve available for trade
 * Summary graphs and charts for performance, as well as year in review. 
+* Total Cash reserve used - add to bottom of main puts/calls page
