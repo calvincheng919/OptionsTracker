@@ -36,7 +36,7 @@ class App extends Component {
       <div>
       <Container >
       <br />
-      <p><h3 className="d-flex justify-content-center">Final Project</h3></p>
+      <p><h3 className="d-flex justify-content-center">Options Tracker</h3></p>
       <Nav className="d-flex justify-content-center">
         <NavItem>
           <NavLink><Link to="/">Home</Link></NavLink>
