@@ -8,7 +8,7 @@
     "classnames": "^2.2.6",
     "firebase": "^5.0.4",
     "iex-api": "0.0.3",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "react": "^16.4.1",
     "react-addons-css-transition-group": "^15.6.2",
     "react-addons-transition-group": "^15.6.2",
